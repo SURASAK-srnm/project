@@ -1,0 +1,87 @@
+/* ===== สไตล์: แนว Stripe, WCAG 2.1 AAA (ดู .ux-profile.md) =====
+   ตัวอักษรทุกสีคอนทราสต์เกิน 7:1 ปุ่มกดสูงอย่างน้อย 48px ห้ามใช้สีรุ้ง/สี RGB สดจัด
+   --ink = ตัวอักษรหลัก, --acc = สีเน้น (ปุ่มหลัก เมนูที่เลือก) */
+:root{--ink:#0a2540;--mut:#465263;--line:#d5dce6;--bg:#f6f9fc;--acc:#4338ca;--acc-d:#3730a3;--bar:#6c66d9;
+--ok:#14532d;--ok-bg:#e9f6ee;--warn:#6b4300;--warn-bg:#fdf3dc;--bad:#8a1c1c;--bad-bg:#fdecec}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 "Sarabun",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+h1,h2,h3,.stat b,.rk>b{font-family:"Prompt","Sarabun",sans-serif;font-weight:600;letter-spacing:-.01em}
+
+/* ----- แถบหัวและเมนู ----- */
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar{max-width:1120px;margin:auto;padding:0 24px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.bar h1{font-size:18px;margin:0;padding:14px 0}
+nav{display:flex;gap:4px;overflow-x:auto}
+nav button{font:inherit;color:var(--mut);background:none;border:0;border-bottom:3px solid transparent;min-height:56px;padding:0 16px;cursor:pointer;white-space:nowrap}
+nav button:hover{color:var(--ink)}
+nav button.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:700}
+
+/* ----- โครงหน้า ----- */
+main{max-width:1120px;margin:auto;padding:32px 24px 8px}
+h2{font-size:28px;margin:0 0 20px}
+h3{font-size:17px;margin:0 0 14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 1px 2px rgba(10,37,64,.06);padding:22px;margin-bottom:16px}
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:16px}
+.row2>.card{margin-bottom:0}
+.tw{overflow-x:auto}
+footer{max-width:1120px;margin:auto;padding:24px 24px 40px;display:flex;gap:12px;flex-wrap:wrap}
+footer button{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:6px;min-height:48px;padding:0 18px;cursor:pointer}
+footer button:hover{border-color:var(--ink)}
+
+/* ----- ฟอร์ม ----- */
+label{display:grid;gap:6px;color:var(--mut);margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select{font:inherit;color:var(--ink);min-height:48px;padding:8px 12px;border:1px solid #8794a8;border-radius:6px;background:#fff;width:100%}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.pri{font:inherit;font-weight:700;background:var(--acc);color:#fff;border:0;border-radius:6px;min-height:48px;padding:0 18px;cursor:pointer;width:100%}
+.pri:hover{background:var(--acc-d)}
+
+/* ----- ตาราง ----- */
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--mut);font-weight:500}
+.act button{font:inherit;color:var(--ink);border:1px solid #8794a8;background:#fff;border-radius:6px;min-height:48px;min-width:48px;padding:0 14px;margin-left:6px;cursor:pointer}
+.act button:hover{border-color:var(--ink)}
+.tag{display:inline-block;padding:1px 12px;border-radius:99px;font-size:15px;font-weight:500;border:1px solid transparent}
+.tag.ok{color:var(--ok);background:var(--ok-bg);border-color:#b7dcc5}
+.tag.warn{color:var(--warn);background:var(--warn-bg);border-color:#e8cf94}
+.tag.bad{color:var(--bad);background:var(--bad-bg);border-color:#efbcbc}
+.alert{background:var(--warn-bg);border:1px solid #e8cf94;color:var(--warn);border-radius:8px;padding:14px 18px;margin-bottom:16px}
+.empty{color:var(--mut);text-align:center;padding:20px}
+.muted{color:var(--mut);margin:4px 0 12px}
+
+/* ----- การ์ดตัวเลข กราฟแท่ง ----- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 1px 2px rgba(10,37,64,.06);padding:18px}
+.stat span{display:block;color:var(--mut)}
+.stat b{font-size:24px}
+.stat b.bad{color:var(--bad)}
+.stat.big{grid-column:1/-1}
+.stat.big b{font-size:42px}
+.big.lose b{color:var(--bad)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:180px}
+.bar{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
+.bar i{display:block;width:100%;background:var(--bar);border-radius:3px 3px 0 0;min-height:3px}
+.bar:last-child i{background:var(--acc)}
+.bar small{color:var(--mut);font-size:14px}
+
+/* ----- อันดับ ----- */
+.seg{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.seg button{font:inherit;color:var(--ink);border:1px solid #8794a8;background:#fff;border-radius:99px;min-height:48px;padding:0 20px;cursor:pointer}
+.seg .on{color:#fff;background:var(--acc);border-color:var(--acc);font-weight:700}
+.rk{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.rk:last-child{border-bottom:0}
+.rk>b{font-size:20px;color:var(--mut)}
+.rk:first-child>b{color:var(--acc)}
+.rn{display:flex;justify-content:space-between}
+.track{height:8px;background:#e6eaf2;border-radius:99px;overflow:hidden;margin-top:6px}
+.track i{display:block;height:100%;background:var(--bar)}
+.rk:first-child .track i{background:var(--acc)}
+
+/* ----- ผลโปรโมชั่น ----- */
+.verdict{font-weight:600;font-size:19px;margin:14px 0}
+.good{color:var(--ok)}.bad{color:var(--bad)}.neg{color:var(--bad)}
+@media(max-width:600px){main{padding:20px 14px}.bar{gap:0;padding:0 14px}}

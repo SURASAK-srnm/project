@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>วิเคราะห์ยอดขายร้านค้า</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- ===== แถบหัวเว็บและเมนู ===== -->
+<header class="top"><div class="bar">
+  <h1 id="brand">ร้านของฉัน</h1>
+  <nav id="nav">
+    <button data-t="stock" class="on">สต็อกสินค้า</button>
+    <button data-t="fin">รายรับรายจ่าย</button>
+    <button data-t="rank">อันดับสินค้า</button>
+    <button data-t="promo">ทดลองโปรโมชั่น</button>
+  </nav>
+</div></header>
+
+<main>
+  <div id="lowbar" class="alert" hidden></div>
+
+  <!-- ===== หน้า 1: สต็อกสินค้า (stock.js) ===== -->
+  <section id="stock" class="tab">
+    <h2>สต็อกสินค้า</h2>
+    <div class="row2">
+      <form id="fa" class="card">
+        <h3>เพิ่มสินค้า</h3>
+        <label>ชื่อสินค้า<input name="n" required></label>
+        <div class="g2">
+          <label>ต้นทุน (บาท)<input name="c" type="number" min="0" step="0.01" required></label>
+          <label>ราคาขาย (บาท)<input name="pr" type="number" min="0" step="0.01" required></label>
+        </div>
+        <div class="g2">
+          <label>จำนวนในสต็อก<input name="s" type="number" min="0" required></label>
+          <label>แจ้งเตือนเมื่อเหลือไม่เกิน<input name="m" type="number" min="0" required></label>
+        </div>
+        <button class="pri">เพิ่มสินค้า</button>
+      </form>
+      <form id="fs" class="card">
+        <h3>บันทึกการขาย</h3>
+        <label>สินค้า<select name="pid"></select></label>
+        <div class="g2">
+          <label>จำนวน<input name="q" type="number" min="1" value="1" required></label>
+          <label>วันที่<input name="d" type="date" required></label>
+        </div>
+        <button class="pri">บันทึกการขาย</button>
+      </form>
+    </div>
+    <div class="card tw"><table id="tp"></table></div>
+  </section>
+
+  <!-- ===== รายรับรายจ่าย (finance.js) ===== -->
+  <section id="fin" class="tab" hidden>
+    <h2>รายรับรายจ่าย</h2>
+    <div id="cards" class="cards"></div>
+    <div class="card"><h3>ยอดขายรายวัน <span id="cd">14</span> วันล่าสุด (บาท)</h3><div id="bars" class="bars"></div></div>
+    <div class="row2">
+      <div class="card tw"><h3>สรุปรายเดือน</h3><table id="tm"></table></div>
+      <div class="card tw"><h3>ยอดขายและกำไรของแต่ละสินค้า</h3><table id="tg"></table></div>
+    </div>
+    <div class="row2">
+      <form id="fe" class="card">
+        <h3>บันทึกค่าใช้จ่ายอื่น</h3>
+        <label>รายการ<input name="n" placeholder="เช่น ค่าเช่าที่ ค่าไฟ" required></label>
+        <div class="g2">
+          <label>จำนวนเงิน (บาท)<input name="a" type="number" min="0" step="0.01" required></label>
+          <label>วันที่<input name="d" type="date" required></label>
+        </div>
+        <button class="pri">บันทึกค่าใช้จ่าย</button>
+      </form>
+      <div class="card tw"><h3>ค่าใช้จ่ายล่าสุด</h3><table id="te"></table></div>
+    </div>
+  </section>
+
+  <!-- =====  อันดับสินค้า (ranking.js) ===== -->
+  <section id="rank" class="tab" hidden>
+    <h2>อันดับสินค้า</h2>
+    <div class="seg" id="seg">
+      <button data-m="q" class="on">จำนวนที่ขายได้</button>
+      <button data-m="r">ยอดขาย</button>
+      <button data-m="p">กำไร</button>
+    </div>
+    <div class="card" id="rk"></div>
+  </section>
+
+  <!-- =====  ทดลองโปรโมชั่น (promo.js) ===== -->
+  <section id="promo" class="tab" hidden>
+    <h2>ทดลองโปรโมชั่น</h2>
+    <div class="row2">
+      <form id="fp" class="card">
+        <h3>ตั้งค่าโปรโมชั่น</h3>
+        <label>สินค้า<select name="pid"></select></label>
+        <label>รูปแบบโปรโมชั่น
+          <select name="t">
+            <option value="pct">ลดเป็นเปอร์เซ็นต์</option>
+            <option value="baht">ลดเป็นบาทต่อชิ้น</option>
+            <option value="bxgy">ซื้อ X แถม Y</option>
+            <option value="bundle">เซ็ตสินค้า (ซื้อคู่ถูกกว่า)</option>
+          </select>
+        </label>
+        <label><span id="tv">ลด (%)</span><input name="v" type="number" min="0" step="0.01" value="10"></label>
+        <label id="ly" hidden>แถม (Y ชิ้น)<input name="y" type="number" min="1" value="1"></label>
+        <label id="l2" hidden>สินค้าที่ซื้อคู่กัน<select name="p2"></select></label>
+        <div class="g2">
+          <label><span id="tn">ขายได้ปกติ</span><input name="n" type="number" min="0" value="100"></label>
+          <label><span id="tq">ขายได้เมื่อจัดโปร</span><input name="m" type="number" min="0" value="150"></label>
+        </div>
+      </form>
+      <div class="card" id="pr"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <button id="demo">ใส่ข้อมูลตัวอย่าง</button>
+  <button id="reset">ล้างข้อมูลทั้งหมด</button>
+</footer>
+
+<!-- โหลดตามลำดับนี้: storage ต้องมาก่อน main ต้องมาหลังสุด -->
+<script src="storage.js"></script>
+<script src="stock.js"></script>
+<script src="finance.js"></script>
+<script src="ranking.js"></script>
+<script src="promo.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
